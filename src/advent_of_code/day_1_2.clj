@@ -5,14 +5,11 @@
 (defn fuel-required [mass]
   (- (Math/floor (/ mass 3)) 2))
 
-(defn total-fuel-required
-  ([mass]
-   (total-fuel-required mass 0))
-  ([mass total-mass]
-   (let [required (fuel-required mass)]
-     (if (<= required 0)
-       total-mass
-       (total-fuel-required required (+ total-mass required)))))
+(defn fuel-required-series [mass]
+  (iterate fuel-required mass))
+
+(defn total-fuel-required [mass]
+  (reduce + (drop 1 (take-while (partial <= 0) (fuel-required-series mass)))))
 
 (defn read-stdin []
   (map (fn [v] (Integer/parseInt v)) (clojure.string/split-lines (slurp *in*))))
