@@ -1,5 +1,3 @@
-;; WIP solution... will probably come back to it tomorrow, because I'm not happy with it at all
-
 (ns day-1-2)
 
 (defn fuel-required [mass]
